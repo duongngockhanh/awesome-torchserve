@@ -1,7 +1,7 @@
 # TorchServe Instruction
 - An introduction to TorchServe, a performant, flexible and easy to use tool for serving PyTorch models in production.
 - An easy-to-understand instruction: [Link](https://viblo.asia/p/torchserve-cong-cu-ho-tro-trien-khai-mo-hinh-pytorch-vyDZOqwO5wj)
-
+- Custom handler: [Link](https://pytorch.org/serve/custom_service.html#start-with-basehandler)
 
 ## 1. Setting
 ```
