@@ -1,16 +1,17 @@
-# Resnet-18 by TorchServe
+# ResNet-18 by TorchServe
+Demo an spicific model, ResNet-18 by TorchServe
 
-### Create model_store
+- Create model_store
 ```
 mkdir model_store
 ```
 
-### Download pretrained resnet-18
+- Download pretrained resnet-18
 ```
 wget https://download.pytorch.org/models/resnet18-f37072fd.pth
 ```
 
-### Create resnet-18.mar
+- Create resnet-18.mar
 ```
 torch-model-archiver \
 --model-name resnet-18 \
@@ -22,7 +23,7 @@ torch-model-archiver \
 --handler image_classifier
 ```
 
-### Run
+- Run
 ```
 torchserve \
 --start --ncs \
@@ -30,7 +31,50 @@ torchserve \
 --models resnet-18.mar
 ```
 
-### Stop
+- Stop
 ```
 torchserve --stop
+```
+
+- Check models
+```
+curl http://0.0.0.0:8081/models/
+```
+
+- config.properties
+```
+inference_address=http://0.0.0.0:8080
+management_address=http://0.0.0.0:8081
+metrics_address=http://0.0.0.0:8082
+
+# load_models=all
+install_py_dep_per_model=true
+model_store=model-store
+max_request_size=26214400
+max_response_size=26214400
+grpc_inference_port=6060
+grpc_management_port=6061
+models={\
+  "VehicleDetection": {\
+    "1.0": {\
+        "defaultVersion": true,\
+        "marName": "VehicleDetection.mar",\
+        "minWorkers": 1,\
+        "maxWorkers": 8,\
+        "batchSize": 40,\
+        "maxBatchDelay": 500,\
+        "responseTimeout": 50\
+    }\
+  },\
+  "LaneDetection": {\
+    "1.0": {\
+        "defaultVersion": true,\
+        "marName": "LaneDetection.mar",\
+        "minWorkers": 1,\
+        "maxWorkers": 8,\
+        "batchSize": 40,\
+        "maxBatchDelay": 500,\
+        "responseTimeout": 50\
+    }\
+  }\
 ```
